@@ -17,8 +17,10 @@ import junit.framework.Assert;
 
 public class SampleDaoTest {
 	static Logger logger=Logger.getLogger(SampleDaoTest.class);
+	SampleDao dao;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
 	}
 
 	@AfterClass
@@ -27,10 +29,13 @@ public class SampleDaoTest {
 
 	@Before
 	public void setUp() throws Exception {
+		dao = new SampleDao(false);//테스트용 생성자 호출
 	}
 
+	
 	@After
 	public void tearDown() throws Exception {
+		dao.back();//test후에 입력된자료 지움
 	}
 
 	@Test
@@ -40,7 +45,8 @@ public class SampleDaoTest {
 
 	@Test
 	public void testSelectAll() throws ClassNotFoundException, SQLException {
-		SampleDao dao = new SampleDao();
+		
+		
 		List<Map<String,Object>> list = dao.selectAll();
 		Assert.assertNotNull(list);
 		Assert.assertTrue(list.size()>0);
@@ -50,5 +56,24 @@ public class SampleDaoTest {
 		
 		
 	}
-
+	@Test
+	public void testSelectOne() throws ClassNotFoundException, SQLException{ 
+		
+		int sabun=1000;
+		Map<String,Object> map = dao.selectOne(sabun);
+		
+		Assert.assertNotNull(map);
+		Assert.assertEquals(sabun, map.get("sabun"));
+		assertEquals(9000, map.get("pay"));
+	}
+	@Test
+	public void testInsertOne() throws SQLException{
+		int sabun = 4000;
+		int pay = 9800;
+		String name="ㄱㅇㄹ";
+		int result = dao.insertOne(sabun, name, pay);
+		assertSame(1, result);
+			
+	}
+	
 }

@@ -20,7 +20,28 @@ public class SampleDao {
 		Class.forName("org.h2.Driver");
 		myconn=DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test","sa","");
 		conn=myconn;
+		
 	}
+	
+	public SampleDao(boolean auto) throws ClassNotFoundException, SQLException{//test용 으로 만든생성자 commit을 안되게 함
+		Connection myconn = null;
+		Class.forName("org.h2.Driver");
+		myconn=DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test","sa","");
+		myconn.setAutoCommit(auto);
+		conn=myconn;
+	}
+	
+	
+	public void close() throws SQLException{
+		if(rs!=null)rs.close();
+		if(pstmt!=null)pstmt.close();
+		if(conn!=null)conn.close();
+	}
+	public void back() throws SQLException{
+		conn.rollback();
+		close();
+	}
+	
 	
 	public List<Map<String,Object>> selectAll() throws SQLException{
 		String sql = "select * from simple01";
@@ -40,12 +61,41 @@ public class SampleDao {
 		}
 
 		
-		if(rs!=null)rs.close();
-		if(pstmt!=null)pstmt.close();
-		if(conn!=null)conn.close();
-
-		
-		
 		return list;
+	}
+	public Map<String,Object> selectOne(int sabun) throws SQLException{
+		String sql = "select * from simple01 where sabun=? ";
+		Map<String, Object> map = new HashMap<>();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, sabun);
+		rs=pstmt.executeQuery();
+		if(rs.next()){
+			map.put("sabun", rs.getInt("sabun"));
+			map.put("name", rs.getString("name"));
+			map.put("nalja", rs.getDate("nalja"));
+			map.put("pay",  rs.getInt("pay"));
+			
+		}
+
+		return map;
+	}
+	
+	public int insertOne(int sabun,String name, int pay) throws SQLException{
+		int result=0;
+		String sql = "insert into simple01 values (?,?,sysdate,?)";
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, sabun);
+		pstmt.setString(2, name);
+		pstmt.setInt(3, pay);
+		result=pstmt.executeUpdate();
+		
+		if(result>0){
+			
+		}else{
+			
+		}
+
+		return result;
 	}
 }
