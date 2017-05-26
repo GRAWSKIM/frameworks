@@ -20,7 +20,7 @@ public class SampleDaoTest {
 	SampleDao dao;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+		//클래스 시작에 한번
 	}
 
 	@AfterClass
@@ -28,8 +28,9 @@ public class SampleDaoTest {
 	}
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception {//메소들를 실행할떄마다
 		dao = new SampleDao(false);//테스트용 생성자 호출
+		System.out.println("dfdsf");
 	}
 
 	
