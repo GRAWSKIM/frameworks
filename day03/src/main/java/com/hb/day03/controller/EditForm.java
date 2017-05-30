@@ -10,21 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hb.day03.model.SimpleDao;
+import com.hb.day03.model.SimpleVo;
 import com.hb.day03.support.MYcontroller;
 
-public class SelectAll implements MYcontroller{
+public class EditForm implements MYcontroller{
 
+	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		req.setAttribute("title", "¼öÁ¤");
+		req.setAttribute("nxtURI", "update.do");
 		
-		
+		int sabun= Integer.parseInt(req.getParameter("sabun"));
+		SimpleDao dao = new SimpleDao();
+		SimpleVo bean = new SimpleVo();
 		try {
-			req.setAttribute("alist", new SimpleDao().selectAll());
-		} catch (SQLException e) {
+			bean = dao.selectOne(sabun);
+		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
-		return "list";
+		
+			req.setAttribute("bean", bean);
+		
+		
+		return "form";
 	}
 
 }

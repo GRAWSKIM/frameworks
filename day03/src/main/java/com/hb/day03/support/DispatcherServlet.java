@@ -53,7 +53,6 @@ public class DispatcherServlet extends HttpServlet{
 	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		//controller
 		String uri = req.getRequestURI();
 		MYcontroller controller = HandlerMapping.mapping(uri);
@@ -61,7 +60,7 @@ public class DispatcherServlet extends HttpServlet{
 		//view
 		
 		if(path.startsWith("redirect:")){
-			path.replace("redirect:", "");
+			path=path.replace("redirect:", "");
 			res.sendRedirect(path);
 			return;
 		}

@@ -5,7 +5,9 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public interface MYcontroller {
-	String execute(ServletRequest req, ServletResponse res) throws ServletException, IOException;
+	String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException;
 }
