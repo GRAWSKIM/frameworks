@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+<style>
+	#table{		
+		width:80%;
+		border:1px solid red;
+		magin: 0px auto;
+		box-sizing: border-box;
+	}	
+	#table .tr{
+		box-sizing: border-box;
+		border-bottom: 1px solid red;
+	}
+	#table .tr>span{
+		display:inline-block;
+		width:23%;
+	}
+	
+</style>

@@ -1,6 +1,10 @@
 package com.hb.day03.support;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -18,15 +22,40 @@ public class DispatcherServlet extends HttpServlet{
 	public void init() throws ServletException {	
 		super.init();
 		
-		HandlerMapping.setMap("/main.do","com.hb.day03.controller.SelectAll");
-		HandlerMapping.setMap("", "");
+		Properties prop = new Properties();
+		InputStream is=getClass().getClassLoader().getResourceAsStream("bean.properties");
+		if(is!=null){
+			try {
+				prop.load(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		 Set<Object> obj=prop.keySet();
+		 Iterator<Object> ite = obj.iterator();
+		while(ite.hasNext()){
+			String key = (String)ite.next();
+			String value = prop.getProperty(key);
+			HandlerMapping.setMap(key, value);
+			System.out.println(key+":"+value);
+		}
+		 
+		
+		
+		
+//		list 	list.do		get
+//		detail	detail.do 	get
+//		
+//		insert	update.do	post
+//		update	update.do	put
+//		delete	update.do	delete
+		
 	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//controller
 		String uri = req.getRequestURI();
-		System.out.println(uri);
 		MYcontroller controller = HandlerMapping.mapping(uri);
 		String path = controller.execute(req, res);
 		//view
@@ -36,7 +65,7 @@ public class DispatcherServlet extends HttpServlet{
 			res.sendRedirect(path);
 			return;
 		}
-		String prifix="";
+		String prifix="/WEB-INF/page/";
 		String subfix = ".jsp";
 		req.getRequestDispatcher(prifix+path+subfix).forward(req, res);
 
