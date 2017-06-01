@@ -16,8 +16,7 @@ public class SimpleDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	public SimpleDao(){
-		
+	public SimpleDao(){		
 		String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
 		String id = "scott";
 		String password="tiger";
@@ -56,5 +55,39 @@ public class SimpleDao {
 		if(pstmt!=null)pstmt.close();
 		if(conn!=null)conn.close();
 		
+	}
+	public int insertOne(SimpleVo bean) throws SQLException {
+		String sql = "insert into simple03 (sabun,name,pay) values(?,?,?)";
+		int result=0;
+		
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, bean.getSabun());
+				pstmt.setString(2, bean.getName());
+				pstmt.setInt(3, bean.getPay());
+				result = pstmt.executeUpdate();
+			}finally{
+				closeAll();
+			}
+		return result;
+	}
+	public SimpleVo selectOne(int sabun) throws SQLException {
+		SimpleVo bean = new SimpleVo();
+		String sql = "SELECT * FROM SIMPLE03 WHERE SABUN=?";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, sabun);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				bean.setName(rs.getString("name"));
+				bean.setnalja(rs.getDate("nalja"));
+				bean.setPay(rs.getInt("pay"));
+				bean.setSabun(rs.getInt("sabun"));
+			}
+		}finally  {
+			
+		}
+		return bean;
 	}
 }

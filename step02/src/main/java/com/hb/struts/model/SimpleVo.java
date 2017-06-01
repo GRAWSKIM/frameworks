@@ -12,6 +12,9 @@ public class SimpleVo {
 	public String toString() {
 		return "SimpleVo [sabun=" + sabun + ", name=" + name + ", nalja=" + nalja + ", pay=" + pay + "]";
 	}
+	public SimpleVo(){
+		
+	}
 	public SimpleVo(int sabun, String name, Date nalja, int pay) {
 		super();
 		this.sabun = sabun;

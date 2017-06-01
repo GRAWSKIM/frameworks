@@ -13,5 +13,28 @@
     		<action name="add">
     			<result>/add.jsp</result>
     		</action>
+    		<action name="insert" class="com.hb.struts.action.InsertThreeAction">
+    			<interceptor-ref name="prepare"/>
+    			<interceptor-ref name="modelDriven"/>
+    			<interceptor-ref name="params"/>
+    			<result name="success" type="redirect">/step02/list.action</result>
+    			<result name="input">/add.jsp</result>
+    		</action>
+    		<action name="detail" class="com.hb.struts.action.detailAction">
+    			<result>/detail.jsp</result>
+    		</action>
+    		<action name="edit" class="com.hb.struts.action.detailAction">
+    			<result>/edit.jsp</result>
+    		</action>
+    		<action name="update" class="com.hb.struts.action.UpdateTwoAction">
+    		<interceptor-ref name="params"/>
+    		<interceptor-ref name="validation"/> 
+    		<interceptor-ref name="workflow"/>
+    			<result name="input" type="redirectAction">
+    				<param name="actionName">edit</param>
+    				<param name="sabun">${bean.sabun }</param>
+    			</result>
+    			<result name="success" type="redirectAction">list</result>
+    		</action>
     	</package>
     </struts>
