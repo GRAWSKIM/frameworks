@@ -11,7 +11,11 @@
   </welcome-file-list>
   <filter>
   <filter-name>step03</filter-name>
-  <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+  <init-param>
+  	<param-name>struts.i18n.eccoding</param-name>
+  	<param-value>UTF-8</param-value>
+  </init-param>
   </filter>
   <filter-mapping>
   	<filter-name>step03</filter-name>
