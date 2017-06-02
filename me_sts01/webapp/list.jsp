@@ -23,7 +23,7 @@
 			<div class="jumbotron">
 				<h1>리스트페이지</h1>
 				<p>여기는 리스트페이지</p>
-				<p><a class="btn btn-primary btn-lg" href="list.do">글쓰러</a></p>
+				<p><a class="btn btn-primary btn-lg" href="add.do">글쓰러</a></p>
 				
 			</div>
 			<div class="page-header">
@@ -39,7 +39,7 @@
 				<c:forEach items="${alist }" var="bean">
 				<tr>
 					<td>${bean.sabun }</td>
-					<td>${bean.name }</td>
+					<td><a href="detail.do?sabun=${bean.sabun }">${bean.name }</a></td>
 					<td>${bean.nalja }</td>
 					<td>${bean.pay }</td>
 				</tr>

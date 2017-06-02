@@ -19,10 +19,8 @@ public class SimpleDao {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","scott","tiger");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -41,9 +39,52 @@ public class SimpleDao {
 	
 		return list;
 	}
+	public int insertOne(SimpleVo bean) throws SQLException {
+		String sql= "INSERT INTO SIMPLE03 VALUES(?,?,SYSDATE,?)";
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bean.getSabun());
+			pstmt.setString(2,bean.getName());
+			pstmt.setInt(3, bean.getPay());
+			return pstmt.executeUpdate();
+		}finally{
+			closeAll();
+		}	
+	}
 	private void closeAll() throws SQLException{
 		if(rs!=null)rs.close();
 		if(pstmt!=null)pstmt.close();
 		if(conn!=null)conn.close();
+	}
+	public SimpleVo selectOne(int sabun) throws SQLException {
+		String sql="SELECT * FROM SIMPLE03 WHERE SABUN=?";
+		SimpleVo bean = new SimpleVo();
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, sabun);
+			rs= pstmt.executeQuery();
+			if(rs.next()){
+				bean.setSabun(rs.getInt("sabun"));
+				bean.setName(rs.getString("name"));
+				bean.setPay(rs.getInt("pay"));
+				bean.setNalja(rs.getDate("nalja"));
+		}
+		}finally{
+			closeAll();
+		}
+		return bean;
+	}
+	public int UpdateOne(SimpleVo bean) throws SQLException {
+		String sql ="UPDATE SIMPLE03 SET NAME=?,PAY=? WHERE SABUN=?";
+		
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, bean.getName());
+			pstmt.setInt(2, bean.getPay());
+			pstmt.setInt(3, bean.getSabun());
+			return pstmt.executeUpdate();
+		}finally{
+			closeAll();
+		}
 	}
 }
