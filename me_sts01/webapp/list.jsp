@@ -17,6 +17,7 @@
 		<div class="row header">
 			<div class="col-md-12">
 				<h2>리스트페이지</h2>
+				<span style="color:red;">${msg }</span>
 			</div>
 		</div>
 		<div class="row content">

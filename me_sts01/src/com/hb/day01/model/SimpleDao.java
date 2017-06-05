@@ -87,4 +87,14 @@ public class SimpleDao {
 			closeAll();
 		}
 	}
+	public int deleteOne(int parseInt) throws SQLException {
+		String sql="DELETE FROM SIMPLE03 WHERE SABUN=?";
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, parseInt);
+			return pstmt.executeUpdate();
+		}finally {
+			closeAll();
+		}
+	}
 }
