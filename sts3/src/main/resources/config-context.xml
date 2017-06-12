@@ -11,6 +11,12 @@
 	<property name="username" value="scott"></property>
 	<property name="password" value="tiger"></property>
 </bean>
-<bean id="dao" class="com.hb.day03.guest.model.Dao.GuestDaoImpl"></bean>
-	<context:annotation-config></context:annotation-config>
+<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcOperation">
+	<constructor-arg ref="datasource"></constructor-arg>	
+</bean>
+<!-- <bean id="dao" class="com.hb.day03.guest.model.Dao.GuestDaoImpl"></bean>
+	<context:annotation-config></context:annotation-config> -->
+	<bean id="dao" class="com.hb.day03.guest.model.Dao.GuestDao3Impl">
+		<property name="jdbcTemple" ref="jdbcOperation"></property>
+	</bean>
 </beans>
