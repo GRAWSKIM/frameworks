@@ -22,9 +22,9 @@ public class DispatcherServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		super.init(config);
-		HandlerMapping.setMap("/day02/list.do", "com.hb.day02.controller.ListController");
-		HandlerMapping.setMap("/day02/add.do", "com.hb.day02.controller.AddController");
-		HandlerMapping.setMap("/day02/insert.do", "com.hb.day02.controller.InsertController");
+		HandlerMapping.setMap("/me_day02/list.do", "com.hb.day02.controller.ListController");
+		HandlerMapping.setMap("/me_day02/add.do", "com.hb.day02.controller.AddController");
+		HandlerMapping.setMap("/me_day02/insert.do", "com.hb.day02.controller.InsertController");
 	}
 
        
@@ -42,8 +42,6 @@ public class DispatcherServlet extends HttpServlet {
 		
 		String URI = request.getRequestURI();
 		MyController controller = HandlerMapping.mapping(URI);
-		
-		
 		String pname = controller.execute(request, response);
 		//view
 		String url=null;

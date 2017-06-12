@@ -11,11 +11,9 @@ public class HandlerMapping {
 	}
 	public static MyController mapping(String URI){
 		MyController controller=null;
-	
-//		 "/day02/index.do":
-//		"/day02/list.do":
+
 		try {
-			Class clazz=Class.forName("com.hb.day02.controller.ListController");
+			Class clazz=Class.forName(map.get(URI));
 			controller=(MyController) clazz.newInstance();
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();

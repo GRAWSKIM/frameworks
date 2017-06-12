@@ -14,9 +14,7 @@ public class UpdateTwoAction extends ActionSupport{
 	}
 	@Override
 	public String execute() throws Exception {
-		
-		
-		
+			
 			return SUCCESS;
 		
 	
@@ -26,7 +24,7 @@ public class UpdateTwoAction extends ActionSupport{
 		if(bean.getSabun()==0)addFieldError("sabun", "사번입력");
 		if(bean.getName().equals(""))addFieldError("name", "이름입력");
 		if(bean.getPay()==0)addFieldError("pay", "돈");
-		
+		System.out.println();
 	}
 
 }

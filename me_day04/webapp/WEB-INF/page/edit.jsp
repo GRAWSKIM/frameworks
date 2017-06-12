@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% %>
 <!DOCTYPE>
 <html>
 <head>
@@ -8,13 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	list 	list.do		get
-	detail	detail.do 	get
-	
-	insert	update.do	post
-	update	update.do	put
-	delete	update.do	delete
-	
-	
+	<h1>수정페이지</h1>
 </body>
 </html>

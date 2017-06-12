@@ -16,7 +16,8 @@ public class SimpleDao {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-
+	
+	
 	public List<Map<String,Object>> selectAll() throws SQLException{		
 		List<Map<String,Object>> list = new ArrayList<>();
 		String sql = "SELECT * FROM SIMPLE02 ORDER BY SABUN";
@@ -28,7 +29,7 @@ public class SimpleDao {
 				Map<String,Object> map = new HashMap<>();
 				map.put("sabun",rs.getInt("sabun"));
 				map.put("name",rs.getString("name"));
-				map.put("nalja", rs.getDate("nalja"));
+				map.put("nalja", rs.getString("nalja"));
 				map.put("pay", rs.getInt("pay"));
 				list.add(map);
 			}
@@ -45,8 +46,7 @@ public class SimpleDao {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, sabun);
 			rs=pstmt.executeQuery();
-			while(rs.next()){
-				
+			while(rs.next()){			
 				map.put("sabun",rs.getInt("sabun"));
 				map.put("name",rs.getString("name"));
 				map.put("nalja", rs.getDate("nalja"));
@@ -63,6 +63,22 @@ public class SimpleDao {
 		if(pstmt!=null)pstmt.close();
 		if(conn!=null)conn.close();
 		
+	}
+	public int insertO4ne(String name, String nalja, int pay) throws SQLException {
+		String sql = "insert into simple02 (name,nalja,pay) values(?,?,?)";
+		int result = 0;
+		try{
+			conn=MyOracle.geConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, nalja);
+			pstmt.setInt(3, pay);
+			result=pstmt.executeUpdate();
+		}
+		finally{
+			closeAll();
+		}
+		return result;
 	}
 	
 }
